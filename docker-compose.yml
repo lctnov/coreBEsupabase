@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: suptest-app:latest
+    container_name: suptest_app
+    ports:
+      - "1312:1211"
+    env_file:
+      - .env.docker
+    environment:
+      NODE_ENV: development
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - suptest-net
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  db:
+    image: postgres:15
+    container_name: suptest_db
+    restart: always
+    env_file:
+      - .env.docker
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - suptest-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U testlab"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  suptest-net:
+    driver: bridge
+
+volumes:
+  postgres_data:

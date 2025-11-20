@@ -1,0 +1,57 @@
+{
+  "name": "corebesupabase",
+  "version": "1.0.0",
+  "description": "Next.js + tRPC + Drizzle + PostgreSQL + Supabase",
+  "main": "index.js",
+  "scripts": {
+    "build": "next build",
+    "start": "next start",
+    "dev": "next dev",
+    "seed": "node scripts/seed-init.js",
+    "migrate": "drizzle-kit push",
+    "migrate:dev": "NODE_ENV=development drizzle-kit push",
+    "migrate:prod": "NODE_ENV=production drizzle-kit push",
+    "migrate:generate": "drizzle-kit generate",
+    "migrate:docker": "docker exec -it suptest_app npm run migrate:dev",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
+    "@supabase/supabase-js": "^2.38.4",
+    "@tanstack/react-query": "^4.32.0",
+    "@trpc/client": "^10.45.2",
+    "@trpc/next": "^10.45.2",
+    "@trpc/react-query": "^10.45.2",
+    "@trpc/server": "^10.45.2",
+    "bcryptjs": "^2.4.3",
+    "drizzle-orm": "^0.44.7",
+    "next": "^14.0.4",
+    "pg": "^8.11.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "@types/node": "^20.19.25",
+    "@types/pg": "^8.10.9",
+    "@types/react": "^18.2.46",
+    "autoprefixer": "^10.4.16",
+    "drizzle-kit": "^0.31.7",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lctnov/coreBEsupabase.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lctnov/coreBEsupabase/issues"
+  },
+  "homepage": "https://github.com/lctnov/coreBEsupabase#readme"
+}
