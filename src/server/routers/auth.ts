@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { zod } from "zod";
 import { router, publicProcedure, protectedProcedure } from "../trpc/router";
 import { db } from "../db";
 import { users, sessions } from "../db/schema";
@@ -11,8 +11,7 @@ export const authRouter = router({
   /**
    * Đăng ký tài khoản mới
    */
-  register: publicProcedure
-    .input(z.object({ email: z.string().email(), password: z.string().min(6) }))
+  register: publicProcedure.input(zod.object({ email: zod.string().email(), password: zod.string().min(6) }))
     .mutation(async ({ input }) => {
       // Kiểm tra email đã tồn tại
       const existingUser = await db.query.users.findFirst({
@@ -43,7 +42,7 @@ export const authRouter = router({
    * Trả về session token + expires time
    */
   login: publicProcedure
-    .input(z.object({ email: z.string().email(), password: z.string() }))
+    .input(zod.object({ email: zod.string().email(), password: zod.string() }))
     .mutation(async ({ input }) => {
       // Tìm user
       const user = await db.query.users.findFirst({
@@ -89,7 +88,7 @@ export const authRouter = router({
    * Xóa session khỏi database
    */
   logout: protectedProcedure
-    .input(z.object({ token: z.string() }).optional())
+    .input(zod.object({ token: zod.string() }).optional())
     .mutation(async ({ input, ctx }) => {
       // Nếu client gửi token, xóa nó
       if (input?.token) {

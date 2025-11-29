@@ -20,7 +20,6 @@ export default function DashboardPage() {
   useEffect(() => {
     const interval = setInterval(() => {
       // Trong một ứng dụng thực, bạn sẽ lấy expires_at từ server
-      // Ở đây chỉ là demo
       const expiresAt = localStorage.getItem("sessionExpiresAt");
       if (expiresAt) {
         const remaining = new Date(expiresAt).getTime() - Date.now();
@@ -46,12 +45,12 @@ export default function DashboardPage() {
 
   const handleLogout = async () => {
       try {
-      await logoutMutation.mutateAsync();
-      document.cookie = "sessionToken=; path=/; max-age=0";
-      router.push("/auth/login?logged_out=true");
-    } catch (err) {
-      console.error("Logout failed:", err);
-    }
+        await logoutMutation.mutateAsync("");
+        document.cookie = "sessionToken=; path=/; max-age=0";
+        router.push("/auth/login?logged_out=true");
+      } catch (err) {
+        console.error("Logout failed:", err);
+      }
   };
 
   if (checkSessionQuery.isLoading) {

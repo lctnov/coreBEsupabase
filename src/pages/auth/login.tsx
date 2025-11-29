@@ -22,7 +22,7 @@ export default function LoginPage() {
             const iso = new Date(data.expiresAt).toISOString();
             localStorage.setItem("sessionExpiresAt", iso);
           } catch (e) {
-            // ignore
+            console.log("Error: ", e.message);
           }
         }
         router.push("/dashboard");

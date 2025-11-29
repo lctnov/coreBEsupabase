@@ -1,15 +1,15 @@
 import { router, publicProcedure } from "../trpc/router";
 import { db } from "../db";
 import { users } from "../db/schema";
-import { z } from "zod";
+import { zod } from "zod";
 import { asc, count } from "drizzle-orm";
 
 export const userRouter = router({
   list: publicProcedure
     .input(
-      z.object({
-        page: z.number().min(1),
-        limit: z.number().min(1).max(100),
+      zod.object({
+        page: zod.number().min(1),
+        limit: zod.number().min(1).max(100),
       })
     )
     .query(async ({ input }) => {
