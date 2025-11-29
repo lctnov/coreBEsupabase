@@ -12,9 +12,7 @@ export async function createContext(opts?: {
   let sessionExpired = false;
 
   // Lấy token từ cookie hoặc header
-  const token =
-    opts?.req?.cookies?.sessionToken ||
-    opts?.req?.headers?.authorization?.replace("Bearer ", "");
+  const token = opts?.req?.cookies?.sessionToken || opts?.req?.headers?.authorization?.replace("Bearer ", "");
 
   if (token) {
     // Tìm session trong database
