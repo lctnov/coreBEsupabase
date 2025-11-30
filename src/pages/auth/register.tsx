@@ -1,9 +1,9 @@
-"use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { trpc } from "../../utils/trpc";
+import { Button, Input, Alert, Space } from "antd";
+import { GoogleOutlined, FacebookOutlined, TwitterOutlined } from "@ant-design/icons";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -14,126 +14,166 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
   const registerMutation = trpc.auth.register.useMutation({
-    onSuccess: () => {
-      // Tự động đăng nhập sau khi đăng ký
-      router.push("/auth/login?registered=true");
-    },
-    onError: (err) => {
-      setError(err.message || "Registration failed");
-    },
+    onSuccess: () => router.push("/auth/login?registered=true"),
+    onError: (err) => setError(err.message || "Đăng ký thất bại"),
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    // Kiểm tra password match
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
-    // Kiểm tra password độ dài
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters");
-      return;
-    }
+    if (password !== confirmPassword) return setError("Mật khẩu không khớp");
+    if (password.length < 6) return setError("Mật khẩu phải ít nhất 6 ký tự");
 
     setLoading(true);
-
     try {
       await registerMutation.mutateAsync({ email, password });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Đăng ký
-          </h2>
+    <div className="min-h-screen flex flex-col lg:flex-row">
+      {/* Left / Form Section */}
+      <div className="flex-1 flex items-center justify-center px-4 sm:px-6 py-8 lg:px-20 lg:py-12">
+        <div className="w-full max-w-md">
+
+          {/* Form Container */}
+          <div className="bg-white dark:bg-gray-850 rounded-2xl shadow-2xl p-8 sm:p-10 border border-gray-200 dark:border-gray-700">
+
+            {/* Header */}
+            <div className="flex flex-col items-center -mt-12 mb-8">
+              <div className="relative group">
+                <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-xl opacity-70 group-hover:opacity-90 transition duration-500"></div>
+                <div className="relative bg-white dark:bg-gray-900 p-6 rounded-full ring-8 ring-white/20 shadow-2xl">
+                  <img 
+                    src="/images/cast.png" 
+                    alt="CAST-V Logo" 
+                    className="w-32 h-32 object-contain rounded-full transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <div className="absolute top-0 -left-4 w-24 h-24 bg-blue-400 rounded-full filter blur-3xl opacity-30 animate-pulse"></div>
+                <div className="absolute bottom-0 -right-4 w-32 h-32 bg-purple-400 rounded-full filter blur-3xl opacity-30 animate-pulse delay-1000"></div>
+              </div>
+
+              <div className="mt-8 text-center">
+                <h1 className="text-4xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  CAST-V
+                </h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 tracking-wider">
+                  Professional Broadcasting System
+                </p>
+              </div>
+            </div>
+
+            {/* Error Alert */}
+            {error && <Alert message={error} type="error" showIcon className="mb-6" />}
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Email <span className="text-red-500">*</span>
+                </label>
+                <Input
+                  size="large"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Password <span className="text-red-500">*</span>
+                </label>
+                <Input.Password
+                  size="large"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="!rounded-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Confirm Password <span className="text-red-500">*</span>
+                </label>
+                <Input.Password
+                  size="large"
+                  placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="!rounded-none"
+                  required
+                />
+              </div>
+
+              <Button
+                type="primary"
+                size="large"
+                htmlType="submit"
+                loading={loading}
+                block
+                className="h-12 text-base font-semibold bg-blue-600 hover:bg-blue-700"
+              >
+                Create account
+              </Button>
+            </form>
+
+            {/* Social Login */}
+            <div className="mt-8">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300 dark:border-gray-600" />
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-4 bg-white dark:bg-gray-850 text-gray-500">
+                    Or sign up with
+                  </span>
+                </div>
+              </div>
+
+              <Space className="w-full justify-center mt-6" size="large">
+                <Button icon={<GoogleOutlined />} size="large" shape="circle" />
+                <Button icon={<FacebookOutlined />} size="large" shape="circle" />
+                <Button icon={<TwitterOutlined />} size="large" shape="circle" />
+              </Space>
+            </div>
+
+            {/* Login Link */}
+            <div className="mt-8 text-center">
+              {/* Mobile / Tablet */}
+              <p className="text-gray-600 dark:text-gray-400 text-sm lg:hidden">
+                Already have an account?{" "}
+                <Link
+                  href="/auth/login"
+                  className="font-semibold text-blue-600 dark:text-blue-400 hover:underline transition-colors duration-200"
+                >
+                  Log in
+                </Link>
+              </p>
+
+              {/* Desktop */}
+              <p className="hidden lg:block text-gray-700 dark:text-gray-300 text-sm mt-6">
+                Already have an account?{" "}
+                <Link
+                  href="/auth/login"
+                  className="font-semibold text-blue-600 dark:text-blue-400 hover:underline transition-colors duration-200"
+                >
+                  Log in
+                </Link>
+              </p>
+            </div>
+
+          </div>
         </div>
-
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <div className="text-sm font-medium text-red-800">{error}</div>
-            </div>
-          )}
-
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="new-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="confirm-password" className="sr-only">
-                Confirm Password
-              </label>
-              <input
-                id="confirm-password"
-                name="confirm-password"
-                type="password"
-                autoComplete="new-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Confirm password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-            >
-              {loading ? "Đang đăng ký..." : "Đăng ký"}
-            </button>
-          </div>
-
-          <div className="text-center text-sm">
-            <span className="text-gray-600">Đã có tài khoản? </span>
-            <Link href="/auth/login" className="font-medium text-blue-600 hover:text-blue-500">
-              Đăng nhập
-            </Link>
-          </div>
-        </form>
       </div>
     </div>
   );
