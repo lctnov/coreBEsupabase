@@ -11,8 +11,8 @@ module.exports = {
       colors: {
         "background-light": "#cbc8c8ff",
         "background-dark": "#0a0a0aff",
-        "text-light": "#0a0a0aff",
-        "text-dark": "#cbc8c8ff",
+        // "text-light": "#0a0a0aff",
+        // "text-dark": "#cbc8c8ff",
       },
     },
   },
