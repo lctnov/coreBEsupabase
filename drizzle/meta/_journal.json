@@ -15,6 +15,13 @@
       "when": 1763640069440,
       "tag": "0001_brainy_thor",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1764846150090,
+      "tag": "0002_mixed_triton",
+      "breakpoints": true
     }
   ]
 }
