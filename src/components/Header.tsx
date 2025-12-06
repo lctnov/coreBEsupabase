@@ -3,6 +3,9 @@ import { useState } from "react";
 import { Input, Select, Button } from "antd";
 import { SearchOutlined, NotificationOutlined } from "@ant-design/icons";
 import "swiper/css";
+import { Tv } from "lucide-react";
+
+
 const { Option } = Select;
 
 export default function Header() {
@@ -12,16 +15,24 @@ export default function Header() {
   return (
 	<>
 	{/* Header */}
-      <header className="flex justify-between items-center px-6 py-4 bg-white bg-gray-900 shadow-md sticky top-0 z-50">
-        <div className="text-2xl font-bold text-blue-600">CAST-V</div>
+      <header className="flex justify-between items-center px-6 py-4 bg-gray-300 shadow-md sticky top-0 z-50">
+        {/* Logo */}
+        <a href="/" className="flex items-center gap-2 group">
+          <div className="p-2 bg-blue-600 rounded-xl text-white group-hover:bg-blue-700 transition">
+            <Tv size={20} />
+          </div>
+          <span className="text-xl font-semibold tracking-tight text-gray-900 group-hover:text-blue-600 transition">
+            CAST-V
+          </span>
+        </a>
         <div className="space-x-4">
-          <Button type="link" href="/auth/login" className="text-blue-600 dark:text-blue-400">Đăng nhập</Button>
-          <Button type="link" href="/auth/register" className="text-blue-600 dark:text-blue-400">Đăng ký</Button>
+          <Button type="link" href="/auth/login" className="text-gray-700 hover:text-blue-600 transition font-medium">Đăng nhập</Button>
+          <Button type="link" href="/auth/register" className="text-gray-700 hover:text-blue-600 transition font-medium px-4">Đăng ký</Button>
         </div>
       </header>
 
       {/* HERO full-screen */}
-<section className="relative w-full min-h-screen md:h-[90vh] overflow-hidden">
+<section className="relative w-full min-h-screen md:h-[90vh] overflow-hidden flex items-center">
 
   {/* Background */}
   <img
@@ -34,73 +45,94 @@ export default function Header() {
   <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/20"></div>
 
   {/* MAIN CONTENT */}
-  <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
-    
-    {/* TITLE */}
-    <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white drop-shadow-xl leading-tight max-w-4xl">
-      Kết nối Nghệ sĩ & Casting
-    </h1>
+  <div className="relative z-10 flex flex-col items-center justify-center w-full px-4 sm:px-6 text-center">
 
-    <p className="mt-4 text-sm sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
-      Tìm casting nhanh • Xây dựng hồ sơ chuyên nghiệp • Kết nối đạo diễn & nhà sản xuất
+    {/* TITLE BLOCK */}
+    <div className="relative flex items-center justify-center gap-3 sm:gap-4">
+      <h1
+        className="
+          shine-text
+          text-3xl sm:text-5xl md:text-6xl
+          font-extrabold
+          drop-shadow-xl
+          leading-tight
+          text-white
+          max-w-3xl sm:max-w-4xl
+          min-h-[40px] sm:min-h-[60px] md:min-h-[80px]
+        ">
+        Kết nối Nghệ sĩ & Casting
+      </h1>
+    </div>
+
+    {/* Description */}
+    <p className="mt-3 sm:mt-4 text-xs sm:text-lg md:text-xl text-gray-200 max-w-sm sm:max-w-xl md:max-w-2xl mx-auto">
+      <i>Tìm casting nhanh • Xây dựng hồ sơ chuyên nghiệp • Kết nối đạo diễn & nhà sản xuất</i>
     </p>
 
-    {/* SEARCH CARD (FLOATING UI) */}
-    <div className="mt-10 w-full max-w-5xl">
-      <div className="
-        bg-white/95 dark:bg-white/10 
-        backdrop-blur-xl 
-        rounded-2xl shadow-2xl 
-        border border-white/40 dark:border-white/20 
-        p-6
-      ">
-        
-        <h2 className="text-center text-xl font-semibold mb-4 text-black dark:text-white">
+    {/* SEARCH CARD */}
+    <div className="mt-8 sm:mt-10 w-full max-w-6xl">
+      <div
+        className="
+          bg-white/95 dark:bg-white/10
+          backdrop-blur-xl
+          rounded-2xl shadow-2xl
+          border border-white/40 dark:border-white/20
+          p-4 sm:p-6
+        ">
+
+        <h2 className="text-center text-base sm:text-xl font-semibold mb-3 sm:mb-4 text-black dark:text-white">
           🎬 TÌM KIẾM CASTING NHANH
         </h2>
 
-        <form className="flex flex-col md:flex-row gap-3 items-center">
-  <Input
-    size="large"
-    placeholder="Tìm kiếm vai diễn..."
-    prefix={<SearchOutlined />}
-    className="rounded-xl flex-1 min-w-0"
-  />
+        <form className="flex flex-col md:flex-row gap-2 sm:gap-3 items-center">
 
-  <Select size="large" placeholder="Tìm theo" className="rounded-xl flex-1 min-w-0" onChange={setType}>
-    <Option value="Phim">Phim</Option>
-    <Option value="Quảng cáo">Quảng cáo</Option>
-    <Option value="MV">MV</Option>
-    <Option value="Sân khấu">Sân khấu</Option>
-  </Select>
+          {/* Input Search */}
+          <Input
+            size="large"
+            placeholder="Tìm kiếm vai diễn..."
+            prefix={<SearchOutlined />}
+            className="rounded-xl flex-1 min-w-0"
+          />
 
-  <Select size="large" placeholder="Địa điểm" className="rounded-xl flex-1 min-w-0" onChange={setLocation}>
-    <Option value="TP.HCM">TP.HCM</Option>
-    <Option value="Hà Nội">Hà Nội</Option>
-    <Option value="Đà Nẵng">Đà Nẵng</Option>
-    <Option value="Toàn quốc">Toàn quốc</Option>
-  </Select>
+          {/* Column responsive to row */}
+          <div className="w-full grid grid-cols-2 md:flex md:flex-1 gap-2 sm:gap-3">
+            <Select size="large" placeholder="Tìm theo" className="rounded-xl flex-1 min-w-0" onChange={setType}>
+              <Option value="Phim">Phim</Option>
+              <Option value="Quảng cáo">Quảng cáo</Option>
+              <Option value="MV">MV</Option>
+              <Option value="Sân khấu">Sân khấu</Option>
+            </Select>
 
-  <Select size="large" placeholder="Loại vai" className="rounded-xl flex-1 min-w-0" onChange={setRole}>
-    <Option value="Chính">Chính</Option>
-    <Option value="Phụ">Phụ</Option>
-    <Option value="Quần chúng">Quần chúng</Option>
-    <Option value="Người mẫu">Người mẫu</Option>
-  </Select>
+            <Select size="large" placeholder="Địa điểm" className="rounded-xl flex-1 min-w-0" onChange={setLocation}>
+              <Option value="TP.HCM">TP.HCM</Option>
+              <Option value="Hà Nội">Hà Nội</Option>
+              <Option value="Đà Nẵng">Đà Nẵng</Option>
+              <Option value="Toàn quốc">Toàn quốc</Option>
+            </Select>
 
-  <Button
-    size="large"
-    type="primary"
-    className="rounded-xl bg-blue-600 hover:bg-blue-700 border-0 flex items-center justify-center"
-    icon={<SearchOutlined />}
-  >
-    Tìm kiếm
-  </Button>
-</form>
+            <Select size="large" placeholder="Loại vai" className="rounded-xl flex-1 min-w-0 col-span-2 md:col-span-1" onChange={setRole}>
+              <Option value="Chính">Chính</Option>
+              <Option value="Phụ">Phụ</Option>
+              <Option value="Quần chúng">Quần chúng</Option>
+              <Option value="Người mẫu">Người mẫu</Option>
+            </Select>
+          </div>
 
+          <Button
+            size="large"
+            type="primary"
+            className="
+              rounded-xl w-full md:w-auto
+              bg-blue-600 hover:bg-blue-700 border-0
+              flex items-center justify-center
+            "
+            icon={<SearchOutlined />}
+          >
+            Tìm kiếm
+          </Button>
+        </form>
 
-        {/* Info line */}
-        <div className="mt-3 flex justify-center items-center gap-2 text-sm text-black dark:text-white">
+        <div className="mt-3 flex justify-center items-center gap-1 sm:gap-2 text-[10px] sm:text-sm text-black dark:text-white">
           <NotificationOutlined /> 3,248 casting đang mở • Cập nhật 2 phút trước
         </div>
 
@@ -108,8 +140,8 @@ export default function Header() {
     </div>
 
   </div>
-
 </section>
+
 	</>
 	
   );
