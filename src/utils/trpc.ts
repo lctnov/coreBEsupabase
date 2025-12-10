@@ -7,7 +7,7 @@ export const trpc = createTRPCReact<AppRouter>();
 
 function getBaseUrl() {
 	if (typeof window !== "undefined") return "";
-	return process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
+	return process.env.CLIENT_URL ? `https://${process.env.CLIENT_URL}` : "http://localhost:1211";
 }
 
 export const trpcNext = createTRPCNext<AppRouter>({

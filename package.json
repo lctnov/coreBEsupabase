@@ -6,7 +6,7 @@
   "scripts": {
     "build": "next build",
     "start": "next start",
-    "dev": "next dev",
+    "dev": "next dev -p 1211",
     "seed": "node scripts/seed-init.js",
     "migrate": "drizzle-kit push",
     "migrate:dev": "NODE_ENV=development drizzle-kit push",

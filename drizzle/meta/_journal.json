@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1763632556511,
-      "tag": "0000_tired_gwen_stacy",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1763640069440,
-      "tag": "0001_brainy_thor",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1764846150090,
-      "tag": "0002_mixed_triton",
+      "when": 1765290911392,
+      "tag": "0000_init",
       "breakpoints": true
     }
   ]

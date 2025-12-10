@@ -1,6 +1,6 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
-import { db } from "../db";
-import { sessions } from "../db/schema";
+import { DbsCasting } from "../database";
+import { sessions } from "../database/schema";
 import { eq } from "drizzle-orm";
 import { isSessionExpired } from "../utils/session";
 
@@ -16,7 +16,7 @@ export async function createContext(opts?: {
 
   if (token) {
     // Tìm session trong database
-    const session = await db.query.sessions.findFirst({
+    const session = await DbsCasting.query.sessions.findFirst({
       where: eq(sessions.token, token),
       with: {
         user: true,
@@ -28,7 +28,7 @@ export async function createContext(opts?: {
       if (isSessionExpired(session.expiresAt)) {
         sessionExpired = true;
         // Xóa session cũ
-        await db.delete(sessions).where(eq(sessions.token, token));
+        await DbsCasting.delete(sessions).where(eq(sessions.token, token));
       } else {
         user = session.user;
       }
@@ -38,7 +38,7 @@ export async function createContext(opts?: {
   return {
     user,
     sessionExpired,
-    db,
+    DbsCasting,
   };
 }
 

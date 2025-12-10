@@ -13,10 +13,8 @@ interface CalendarCastingCardProps {
 
 export default function CalendarCastingCard({ title, items }: CalendarCastingCardProps) {
 	
-
   return (
-    <div className="p-0"> {/* Bỏ background ngoài */}
-      {/* Tiêu đề card con */}
+    <div className="p-0">
       <h3 className="text-lg font-bold text-white mb-4">{title}</h3>
 
       <div className="grid grid-cols-1 gap-4">

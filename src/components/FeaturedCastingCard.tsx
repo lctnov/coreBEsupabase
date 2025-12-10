@@ -24,6 +24,7 @@ interface CastingProps {
 }
 
 export default function FeaturedCastingCard({ data = [] }: FeaturedCastingProps) {
+  
   const useSwiper = data.length > 5;
   const initialSlide = Math.floor(data.length / 2);
 

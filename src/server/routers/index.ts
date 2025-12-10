@@ -1,12 +1,14 @@
 import { router } from "../trpc/router";
-import { authRouter } from "./auth";
-import { uploadRouter } from "./uploadRouter";
-import { userRouter } from "./user";
+import { actorPostingRouter } from "./actorPosting.router";
+import { authRouter } from "./auth.router";
+import { recruiterCastingRouter } from "./recruiterCasting.router";
+import { userRouter } from "./user.router";
 
 export const appRouter = router({
   auth: authRouter,
   user: userRouter,
-  upload: uploadRouter,
+  actorCastingRouter: actorPostingRouter,
+  recruiterCastingRouter: recruiterCastingRouter,
 });
 
 export type AppRouter = typeof appRouter;

@@ -1,18 +1,15 @@
-"use client";
-
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import CastLogoMotion  from "@/components/CastLogoMotion";
 
 export default function HomePage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.push("/auth/login");
-  }, [router]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-lg text-gray-600">Redirecting...</div>
+    <div className="relative min-h-screen flex items-center justify-center bg-gray-300 overflow-hidden px-4">
+
+        {/* Logo */}
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <CastLogoMotion />
+        </div>
+
     </div>
   );
 }

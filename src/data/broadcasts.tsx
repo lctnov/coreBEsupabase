@@ -127,7 +127,8 @@ export const featuredCastings = [
       "Upload headshot & reel",
       "Nhận thông báo casting mới",
     ],
-    btnText: "BẮT ĐẦU NGAY →",
+    btnText: "TẠO HỒ SƠ →",
+    actionType: "ACTOR",
   },
   {
     icon: "🎬",
@@ -138,5 +139,92 @@ export const featuredCastings = [
       "Quản lý hồ sơ ứng viên",
     ],
     btnText: "ĐĂNG CASTING →",
+    actionType: "RECRUITER",
+  },
+];
+
+export const plansRecruiter = [
+  {
+    name: "Basic",
+    price: "$0",
+    highlight: false,
+    description: "Miễn phí lần đầu tiên",
+    features: ["Tặng 1 lượt casting miễn phí", "Đăng ký không cần thanh toán"],
+    button: "Đăng ký",
+    disabled: true,
+  },
+  {
+    name: "Standard",
+    price: "$19.99",
+    oldPrice: "$29.99",
+    highlight: false,
+    description: "Gói tiêu chuẩn cho nhà tuyển",
+    features: ["10 lượt casting / tháng", "Có thể casting ngay + Không hổ trợ xét duyệt nhanh", "Thanh toán dễ dàng"],
+    button: "Đăng ký",
+  },
+  {
+    name: "Pro",
+    price: "$49.99",
+    oldPrice: "$79.99",
+    highlight: false,
+    description: "Gói chuyên nghiệp cho nhà tuyển",
+    features: ["20 lượt casting / tháng", "Có thể casting ngay + Không hổ trợ xét duyệt nhanh", "Thanh toán dễ dàng"],
+    button: "Đăng ký",
+  },
+  {
+    name: "Premium",
+    price: "$89.99",
+    oldPrice: "$129.99",
+    highlight: true,
+    description: "Gói cao cấp cho nhà tuyển",
+    features: [
+      "50 lượt casting / tháng",
+      "Đẩy top casting + Hổ trợ xét duyệt nhanh",
+      "Thanh toán dễ dàng",
+    ],
+    button: "Đăng ký",
+  },
+];
+
+export const plansActor= [
+  {
+    name: "Basic",
+    price: "$0",
+    highlight: false,
+    description: "Miễn phí lần đầu tiên",
+    features: ["Tặng 1 lượt tạo hồ sơ miễn phí", "Đăng ký ngay", "Không hổ trợ xét duyệt nhanh", "Không cần thanh toán"],
+    button: "Đăng ký",
+    disabled: true,
+  },
+  {
+    name: "Standard",
+    price: "$19.99",
+    oldPrice: "$29.99",
+    highlight: false,
+    description: "Gói tiêu chuẩn cho diễn viên",
+    features: ["10 lượt tạo hồ sơ / tháng", "Có thể tạo hồ sơ ngay + Không hổ trợ xét duyệt nhanh", "Thanh toán dễ dàng"],
+    button: "Đăng ký",
+  },
+  {
+    name: "Pro",
+    price: "$49.99",
+    oldPrice: "$79.99",
+    highlight: false,
+    description: "Gói chuyên nghiệp cho diễn viên",
+    features: ["20 lượt tạo hồ sơ / tháng", "Có thể tạo hồ sơ ngay + Không hổ trợ xét duyệt nhanh", "Thanh toán dễ dàng"],
+    button: "Đăng ký",
+  },
+  {
+    name: "Premium",
+    price: "$89.99",
+    oldPrice: "$129.99",
+    highlight: true,
+    description: "Gói cao cấp cho diễn viên",
+    features: [
+      "50 lượt tạo hồ sơ / tháng",
+      "Đẩy top hồ sơ + Hổ trợ xét duyệt nhanh",
+      "Thanh toán dễ dàng",
+    ],
+    button: "Đăng ký",
   },
 ];

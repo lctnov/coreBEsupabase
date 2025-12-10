@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
-import 'swiper/css';
 import { UserStar } from "lucide-react";
 import { globalArtists as _artists } from "@/data/broadcasts";
+
+import 'swiper/css';
 
 type ArtistItem = {
   name: string;
@@ -20,11 +21,10 @@ interface ArtistProps {
 }
 
 export default function ArtistCastingCard({ data = [] }: ArtistCastingCardProps) {
-  const placeholderAvatar = "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&q=80";
   
   const globalArtists = data.map(a => ({
     ...a,
-    avatar: a.avatar || placeholderAvatar,
+    avatar: a.avatar,
   }));
 
   const initialSlide = Math.floor(globalArtists.length / 2);

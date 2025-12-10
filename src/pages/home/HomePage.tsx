@@ -16,6 +16,7 @@ import { CalendarDays, FileType } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
+import PricingSection from "@/components/PricingSection";
 
 export default function HomePage() {
   
@@ -74,7 +75,6 @@ export default function HomePage() {
         </div>
       </section>
 
-
       {/* NGHỆ SĨ NỔI BẬT */}
       <section className="px-6 py-10 lg:py-12">
         <ArtistCastingCard data={_artists || []} />
@@ -86,6 +86,8 @@ export default function HomePage() {
         <ActorCastingCard data={actorRecruiterData} />
       </section>
 
+      <PricingSection />
+      
       <Footer />
     </div>
   );
