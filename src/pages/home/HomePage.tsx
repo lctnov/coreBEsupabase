@@ -4,6 +4,7 @@ import FeaturedCastingCard from "@/components/FeaturedCastingCard";
 import ArtistCastingCard from "@/components/ArtistCastingCard";
 import CalendarCastingCard from "@/components/CalendarCastingCard";
 import ActorCastingCard from "@/components/ActorCastingCard";
+import { memo, lazy, Suspense } from "react";
 import {
   vnBroadcasts,
   globalBroadcasts,
@@ -16,9 +17,11 @@ import { CalendarDays, FileType } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
-import PricingSection from "@/components/PricingSection";
 
-export default function HomePage() {
+// Lazy load PricingSection
+const PricingSection = lazy(() => import("@/components/PricingSection"));
+
+export default memo(function HomePage() {
   
   const CalendarTitle = () => (
 		<div className="text-center mb-6">
@@ -86,9 +89,11 @@ export default function HomePage() {
         <ActorCastingCard data={actorRecruiterData} />
       </section>
 
-      <PricingSection />
+      <Suspense fallback={<div className="h-96 bg-gray-900 animate-pulse rounded-2xl" />}>
+        <PricingSection />
+      </Suspense>
       
       <Footer />
     </div>
   );
-}
+});

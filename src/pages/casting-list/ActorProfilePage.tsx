@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "antd";
 import Footer from "@/components/Footer";
 import { Tabs } from "antd";
@@ -77,7 +76,7 @@ export default function ActorProfilePage() {
               <div className="space-y-4 text-[15px] text-gray-700 dark:text-gray-300">
                 <div>
                   <div className="font-medium">2024</div>
-                  <div>Vai phụ — Phim "Miền Ký Ức"</div>
+                  <div>Vai phụ — Phim &quot;Miền Ký Ức&quot;</div>
                 </div>
                 <div>
                   <div className="font-medium">2023</div>

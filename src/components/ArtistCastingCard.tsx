@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 import { UserStar } from "lucide-react";
-import { globalArtists as _artists } from "@/data/broadcasts";
+import { memo, useState } from "react";
 
 import 'swiper/css';
 
@@ -20,7 +20,7 @@ interface ArtistProps {
   item: ArtistItem;
 }
 
-export default function ArtistCastingCard({ data = [] }: ArtistCastingCardProps) {
+export default memo(function ArtistCastingCard({ data = [] }: ArtistCastingCardProps) {
   
   const globalArtists = data.map(a => ({
     ...a,
@@ -70,21 +70,31 @@ export default function ArtistCastingCard({ data = [] }: ArtistCastingCardProps)
       </Swiper>
     </div>
   );
-}
+});
 
 
 function ArtistItem({ item }: ArtistProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <motion.div
       className="p-3 text-center bg-white text-black rounded-xl shadow-md transition hover:-translate-y-1 hover:shadow-xl dark:bg-gray-800 dark:text-white"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "100px" }}
     >
-      <div className="mb-3 overflow-hidden rounded-lg aspect-[3/4]">
+      <div className="mb-3 overflow-hidden rounded-lg aspect-[3/4] bg-gray-700">
+        {!isLoaded && (
+          <div className="w-full h-full bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 animate-pulse" />
+        )}
         <img
           src={item.avatar}
           alt={item.name}
-          className="object-cover w-full h-full"
+          loading="lazy"
+          onLoad={() => setIsLoaded(true)}
+          className={`object-cover w-full h-full will-change-transform transition-opacity ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         />
       </div>
 

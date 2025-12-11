@@ -44,30 +44,26 @@ export default function CastLogoMotion() {
       repeat: Infinity,
       ease: "easeInOut",
     }}
-    className="relative"
+    className="relative will-change-transform"
   >
-    {/* Gradient glow */}
+    {/* Gradient glow - optimize: single animation */}
     <motion.div
       animate={{ opacity: [0.6, 0.9, 0.6] }}
       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       className="absolute -inset-4 bg-gradient-to-r 
                  from-blue-600 to-purple-600 
-                 rounded-full blur-xl"
+                 rounded-full blur-xl will-change-opacity"
     />
 
-    {/* Floating lights */}
-    <motion.div
-      animate={{ opacity: [0.15, 0.3, 0.15] }}
-      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+    {/* Floating lights - optimize: use CSS animation instead */}
+    <div
       className="absolute top-0 -left-4 w-24 h-24 
-                 bg-blue-400 rounded-full blur-3xl"
+                 bg-blue-400 rounded-full blur-3xl opacity-20 animate-pulse"
     />
 
-    <motion.div
-      animate={{ opacity: [0.15, 0.3, 0.15] }}
-      transition={{ duration: 6, repeat: Infinity, delay: 1 }}
+    <div
       className="absolute bottom-0 -right-4 w-32 h-32 
-                 bg-purple-400 rounded-full blur-3xl"
+                 bg-purple-400 rounded-full blur-3xl opacity-20 animate-pulse animation-delay-1000"
     />
 
     {/* ===== LOGO (STATIC) ===== */}

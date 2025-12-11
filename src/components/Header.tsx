@@ -9,9 +9,9 @@ import { Tv } from "lucide-react";
 const { Option } = Select;
 
 export default function Header() {
-	const [role, setRole] = useState("");
-  const [location, setLocation] = useState("");
-  const [type, setType] = useState("");
+    const [, setRole] = useState("");
+  const [, setLocation] = useState("");
+  const [, setType] = useState("");
   return (
 	<>
 	{/* Header */}

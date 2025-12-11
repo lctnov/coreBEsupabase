@@ -1,9 +1,6 @@
-import React, { useState } from "react";
-import { Input, Select, Button, Checkbox, Upload } from "antd";
-import { InboxOutlined } from "@ant-design/icons";
-import { trpc } from "@/utils/trpc";
-import axios from "axios";
-import UploadCastingFile from "@/components/UploadCastingFile";
+import { useState } from "react";
+import { Input, Select, Button, Checkbox } from "antd";
+// import UploadCastingFile from "@/components/UploadCastingFile";
 /**
  * PostCastingPage.tsx
  * Trang: ĐĂNG CASTING (Dành cho nhà tuyển)
@@ -50,7 +47,7 @@ export default function PostCastingPage() {
   const [location, setLocation] = useState("");
   const [desc, setDesc] = useState("");
   const [isPublic, setIsPublic] = useState(true);
-  const [filesUploaded, setFilesUploaded] = useState(false);
+  const filesUploaded = false;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +57,7 @@ export default function PostCastingPage() {
   };
 
   
-  console.log('filesUploaded', filesUploaded);
+  // debug: filesUploaded
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-black dark:text-white">
@@ -139,7 +136,7 @@ export default function PostCastingPage() {
 
           <div>
             <label className="font-semibold">Đính kèm hình ảnh / brief</label>
-            <UploadCastingFile castingId="new" onUploaded={() => setFilesUploaded(true)} />
+            {/* <UploadCastingFile castingId="new" onUploaded={() => setFilesUploaded(true)} /> */}
 
               {filesUploaded && (
                 <Button type="primary">Tiếp tục</Button>

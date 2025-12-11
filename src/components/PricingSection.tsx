@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import { plansRecruiter, plansActor } from "@/data/broadcasts";
+import { plansActor } from "@/data/broadcasts";
 import { Star, Zap, Gem } from "lucide-react";
 
 export default function PricingSection() {

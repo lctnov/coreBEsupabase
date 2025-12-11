@@ -45,7 +45,7 @@ export default function DashboardPage() {
 
   const handleLogout = async () => {
       try {
-        await logoutMutation.mutateAsync("");
+        await logoutMutation.mutateAsync();
         document.cookie = "sessionToken=; path=/; max-age=0";
         router.push("/auth/login?logged_out=true");
       } catch (err) {

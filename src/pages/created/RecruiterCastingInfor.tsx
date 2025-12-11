@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Props = {
@@ -93,7 +93,7 @@ export function RecruiterCastingInfor({ open, onClose, remainSlots }: Props) {
 
               <Section title="Thông tin vai diễn">
                 <Grid>
-				  <Input
+                  <Input
                     label="Loại casting"
                     value={form.type}
                     onChange={(e: any) => update("type", e.target.value)}
@@ -129,10 +129,10 @@ export function RecruiterCastingInfor({ open, onClose, remainSlots }: Props) {
                     value={form.deadline}
                     onChange={(e: any) => update("deadline", e.target.value)}
                   />
-				  <Input
+                  <Input
                     label="Địa điểm"
                     value={form.location}
-                    onChange={(e) => update("location", e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => update("location", e.target.value)}
                     placeholder="Hà Nội, TP.HCM..."
                   />
                 </Grid>

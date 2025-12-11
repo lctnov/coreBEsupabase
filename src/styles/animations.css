@@ -1,0 +1,61 @@
+/**
+ * Performance Optimized Animations
+ * Add to tailwind.config.js or use as separate CSS
+ */
+
+/* Smooth transform animations */
+.transition-smooth {
+  @apply transition-all duration-300 ease-out;
+}
+
+/* GPU-accelerated hover state */
+.hover-lift {
+  @apply hover:-translate-y-1 transition-transform duration-300 ease-out;
+}
+
+/* Optimize image loading */
+.image-skeleton {
+  @apply bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 animate-pulse;
+}
+
+/* Optimize Framer Motion */
+.motion-safe {
+  @apply transition-opacity duration-300;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Global scroll optimization */
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll; /* Prevent layout shift */
+}
+
+/* Smooth scrolling performance */
+main,
+section {
+  will-change: scroll-position;
+}
+
+/* Image optimization */
+img {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animation delay utility */
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}

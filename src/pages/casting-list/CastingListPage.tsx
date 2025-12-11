@@ -1,26 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Input,
-  Select,
-  Button,
-  Checkbox,
-  Row,
-  Col,
-} from "antd";
-import {
-  SearchOutlined,
-  NotificationOutlined,
-  EyeOutlined,
-  HeartOutlined,
-} from "@ant-design/icons";
+import { Input, Select, Button, Checkbox } from "antd";
+import { SearchOutlined, EyeOutlined, HeartOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
 export default function CastingListPage() {
-  const [types, setTypes] = useState<string[]>(["Phim", "Quảng cáo"]);
-  const [roles, setRoles] = useState<string[]>(["Vai chính", "Vai phụ"]);
+  // types / roles: removed unused states
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState("TP.HCM");
   const [category, setCategory] = useState("Phim");
@@ -89,8 +76,8 @@ export default function CastingListPage() {
       <section className="max-w-6xl mx-auto -mt-12 px-4">
         <div className="bg-white dark:bg-white/5 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-5">
           {/* Summary line */}
-          <div className="text-center text-sm text-gray-700 dark:text-gray-300 mb-4">
-            🔍 Tìm kiếm: <strong className="mx-1">"nữ chính"</strong> | 📍 <strong className="mx-1">TP.HCM</strong> | 🎭 <strong className="mx-1">Phim điện ảnh</strong>
+            <div className="text-center text-sm text-gray-700 dark:text-gray-300 mb-4">
+            🔍 Tìm kiếm: <strong className="mx-1">&quot;nữ chính&quot;</strong> | 📍 <strong className="mx-1">TP.HCM</strong> | 🎭 <strong className="mx-1">Phim điện ảnh</strong>
           </div>
 
           <div className="border-t border-b border-gray-100 dark:border-gray-800 py-4">
@@ -113,13 +100,13 @@ export default function CastingListPage() {
 
               {/* search + selects */}
               <div className="flex gap-3 items-center w-full md:w-auto">
-                <Input
-                  value={keyword}
-                  onChange={(e) => setKeyword(e.target.value)}
-                  placeholder='Tìm kiếm: "nữ chính"'
-                  prefix={<SearchOutlined />}
-                  size="middle"
-                  className="rounded-lg"
+                  <Input
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                    placeholder={"Tìm kiếm: &quot;nữ chính&quot;"}
+                    prefix={<SearchOutlined />}
+                    size="middle"
+                    className="rounded-lg"
                 />
 
                 <Select value={location} onChange={(v) => setLocation(v)} size="middle" className="min-w-[140px] rounded-lg">

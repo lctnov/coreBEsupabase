@@ -3,6 +3,7 @@ import "swiper/css";
 import { motion } from "framer-motion";
 import { Button, Tag } from "antd";
 import { Flame } from "lucide-react";
+import { memo, useState } from "react";
 
 type CastingItem = {
   title: string;
@@ -23,7 +24,7 @@ interface CastingProps {
   item: CastingItem;
 }
 
-export default function FeaturedCastingCard({ data = [] }: FeaturedCastingProps) {
+export default memo(function FeaturedCastingCard({ data = [] }: FeaturedCastingProps) {
   
   const useSwiper = data.length > 5;
   const initialSlide = Math.floor(data.length / 2);
@@ -73,16 +74,28 @@ export default function FeaturedCastingCard({ data = [] }: FeaturedCastingProps)
       </Swiper>
     </div>
   );
-}
+});
 
-function CastingCard({ item }: CastingProps) {
+const CastingCard = memo(function CastingCard({ item }: CastingProps) {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   return (
     <div className="rounded-2xl bg-[#1f2233] shadow-md overflow-hidden border border-transparent hover:border-blue-500 transition">
-      <div className="relative h-56 overflow-hidden">
+      <div className="relative h-56 overflow-hidden bg-gray-800">
+        {/* Skeleton loader */}
+        {!isImageLoaded && (
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 animate-pulse" />
+        )}
+
         <motion.img
           whileHover={{ scale: 1.05 }}
+          onLoad={() => setIsImageLoaded(true)}
           src={item.image}
-          className="object-cover w-full h-full rounded-t-2xl"
+          alt={item.title}
+          loading="lazy"
+          className={`object-cover w-full h-full rounded-t-2xl will-change-transform transition-opacity ${
+            isImageLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         />
 
         <Tag className="absolute top-3 left-3 px-2 py-1 text-xs rounded-full bg-blue-600/80 text-white">
@@ -110,4 +123,4 @@ function CastingCard({ item }: CastingProps) {
       </div>
     </div>
   );
-}
+});
