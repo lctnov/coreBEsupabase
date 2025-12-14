@@ -200,7 +200,7 @@ const checkSessionQuery = trpc.auth.checkSession.useQuery();
 
 useEffect(() => {
   if (!checkSessionQuery.data?.isAuthenticated) {
-    router.push("/auth/login");
+    router.push("/auth/loginView");
   }
 }, [checkSessionQuery.isSuccess]);
 ```
@@ -224,12 +224,12 @@ useEffect(() => {
 ## 🧪 Testing
 
 ### Test Register
-1. Go to `http://localhost:3000/auth/register`
+1. Go to `http://localhost:3000/features/register`
 2. Enter email + password
 3. Click "Đăng ký"
 
 ### Test Login
-1. Go to `http://localhost:3000/auth/login`
+1. Go to `http://localhost:3000/features/login`
 2. Enter registered email + password
 3. Click "Đăng nhập"
 4. Redirected to dashboard

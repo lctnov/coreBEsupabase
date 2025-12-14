@@ -5,8 +5,8 @@
 | File/Folder | Reason |
 |-------------|--------|
 | `src/.trpc/client.ts` | Duplicate - functionality moved to `src/utils/trpc.ts` |
-| `src/app/` (entire folder) | App Router not used - project uses Pages Router in `src/pages/` |
-| `src/pages/_document.tsx` | Next.js default boilerplate - not needed |
+| `src/app/` (entire folder) | App Router not used - project uses Pages Router in `src/features/` |
+| `src/features/_document.tsx` | Next.js default boilerplate - not needed |
 | `scripts/seed.js` | Replaced by `scripts/seed-init.js` |
 | `scripts/seed-init.ts` | TypeScript module cycle issue - using `.js` version instead |
 | `scripts/seed-init.sql` | Raw SQL not needed - using Node.js for dynamic table creation |

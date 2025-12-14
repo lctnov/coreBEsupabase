@@ -1,9 +1,9 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import FeaturedCastingCard from "@/components/FeaturedCastingCard";
-import ArtistCastingCard from "@/components/ArtistCastingCard";
-import CalendarCastingCard from "@/components/CalendarCastingCard";
-import ActorCastingCard from "@/components/ActorCastingCard";
+import Header from "@/pages/layouts/Header";
+import Footer from "@/pages/layouts/Footer";
+import FeaturedCastingCard from "@/pages/features/home/components/FeaturedCastingCard";
+import ArtistCastingCard from "@/pages/features/home/components/ArtistCastingCard";
+import CalendarCastingCard from "@/pages/features/home/components/CalendarCastingCard";
+import ActorCastingCard from "@/pages/features/home/components/ActorCastingCard";
 import { memo, lazy, Suspense } from "react";
 import {
   vnBroadcasts,
@@ -19,7 +19,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 
 // Lazy load PricingSection
-const PricingSection = lazy(() => import("@/components/PricingSection"));
+const PricingSection = lazy(() => import("@/pages/features/home/components/PricingSection"));
 
 export default memo(function HomePage() {
   

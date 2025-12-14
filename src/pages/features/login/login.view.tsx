@@ -1,38 +1,21 @@
+"use client";
+
 import { useState } from "react";
+import { useLoginVM } from "./login.view-model";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { trpc } from "../../utils/trpc";
-import { Button, Input, Alert, Space } from "antd";
+import { Button, Input, Alert, Checkbox, Space } from "antd";
 import { GoogleOutlined, FacebookOutlined, TwitterOutlined } from "@ant-design/icons";
 
-export default function RegisterPage() {
-  const router = useRouter();
+export function LoginView() {
+  const { submit, loading, error } = useLoginVM();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const registerMutation = trpc.auth.register.useMutation({
-    onSuccess: () => router.push("/auth/login?registered=true"),
-    onError: (err) => setError(err.message || "Đăng ký thất bại"),
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
-
-    if (password !== confirmPassword) return setError("Mật khẩu không khớp");
-    if (password.length < 6) return setError("Mật khẩu phải ít nhất 6 ký tự");
-
-    setLoading(true);
-    try {
-      await registerMutation.mutateAsync({ email, password });
-    } finally {
-      setLoading(false);
-    }
+    submit({ email, password });
   };
-
+  
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
       {/* Left / Form Section */}
@@ -41,9 +24,10 @@ export default function RegisterPage() {
 
           {/* Form Container */}
           <div className="bg-white dark:bg-gray-850 rounded-2xl shadow-2xl p-8 sm:p-10 border border-gray-200 dark:border-gray-700">
-
+            
             {/* Header */}
             <div className="flex flex-col items-center -mt-12 mb-8">
+              {/* Logo with gradient shadow / pulse */}
               <div className="relative group">
                 <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-xl opacity-70 group-hover:opacity-90 transition duration-500"></div>
                 <div className="relative bg-white dark:bg-gray-900 p-6 rounded-full ring-8 ring-white/20 shadow-2xl">
@@ -57,6 +41,7 @@ export default function RegisterPage() {
                 <div className="absolute bottom-0 -right-4 w-32 h-32 bg-purple-400 rounded-full filter blur-3xl opacity-30 animate-pulse delay-1000"></div>
               </div>
 
+              {/* Title */}
               <div className="mt-8 text-center">
                 <h1 className="text-4xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   CAST-V
@@ -68,7 +53,9 @@ export default function RegisterPage() {
             </div>
 
             {/* Error Alert */}
-            {error && <Alert message={error} type="error" showIcon className="mb-6" />}
+            {error && (
+              <Alert message={error} type="error" showIcon className="mb-6" />
+            )}
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -78,7 +65,6 @@ export default function RegisterPage() {
                 </label>
                 <Input
                   size="large"
-                  type="email"
                   placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -101,18 +87,13 @@ export default function RegisterPage() {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Confirm Password <span className="text-red-500">*</span>
-                </label>
-                <Input.Password
-                  size="large"
-                  placeholder="••••••••"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="!rounded-none"
-                  required
-                />
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <Checkbox className="text-gray-700 dark:text-gray-300">
+                  Keep me logged in
+                </Checkbox>
+                <Link href="/features/forgot-password" className="text-sm text-blue-600 hover:underline">
+                  Forgot password
+                </Link>
               </div>
 
               <Button
@@ -123,7 +104,7 @@ export default function RegisterPage() {
                 block
                 className="h-12 text-base font-semibold bg-blue-600 hover:bg-blue-700"
               >
-                Create account
+                Log in now
               </Button>
             </form>
 
@@ -135,7 +116,7 @@ export default function RegisterPage() {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-4 bg-white dark:bg-gray-850 text-gray-500">
-                    Or sign up with
+                    Or sign in with
                   </span>
                 </div>
               </div>
@@ -147,27 +128,27 @@ export default function RegisterPage() {
               </Space>
             </div>
 
-            {/* Login Link */}
+            {/* Register Link */}
             <div className="mt-8 text-center">
               {/* Mobile / Tablet */}
               <p className="text-gray-600 dark:text-gray-400 text-sm lg:hidden">
-                Already have an account?{" "}
+                Not a member yet?{" "}
                 <Link
-                  href="/auth/login"
+                  href="/features/register"
                   className="font-semibold text-blue-600 dark:text-blue-400 hover:underline transition-colors duration-200"
                 >
-                  Log in
+                  Register now
                 </Link>
               </p>
 
               {/* Desktop */}
               <p className="hidden lg:block text-gray-700 dark:text-gray-300 text-sm mt-6">
-                Already have an account?{" "}
+                New to CAST-V?{" "}
                 <Link
-                  href="/auth/login"
+                  href="/features/register"
                   className="font-semibold text-blue-600 dark:text-blue-400 hover:underline transition-colors duration-200"
                 >
-                  Log in
+                  Create Account
                 </Link>
               </p>
             </div>

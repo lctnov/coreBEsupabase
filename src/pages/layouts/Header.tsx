@@ -26,8 +26,8 @@ export default function Header() {
           </span>
         </a>
         <div className="space-x-4">
-          <Button type="link" href="/auth/login" className="text-gray-700 hover:text-blue-600 transition font-medium">Đăng nhập</Button>
-          <Button type="link" href="/auth/register" className="text-gray-700 hover:text-blue-600 transition font-medium px-4">Đăng ký</Button>
+          <Button type="link" href="/features/login" className="text-gray-700 hover:text-blue-600 transition font-medium">Đăng nhập</Button>
+          <Button type="link" href="/features/register" className="text-gray-700 hover:text-blue-600 transition font-medium px-4">Đăng ký</Button>
         </div>
       </header>
 

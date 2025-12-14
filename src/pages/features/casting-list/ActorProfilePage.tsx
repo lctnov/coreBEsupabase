@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import Footer from "@/components/Footer";
+import Footer from "@/pages/layouts/Footer";
 import { Tabs } from "antd";
 
 const top3Actors = [
@@ -17,8 +17,8 @@ export default function ActorProfilePage() {
       <header className="flex justify-between items-center px-6 py-4 bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50">
         <div className="text-2xl font-bold text-blue-600">CAST-V</div>
         <div className="space-x-4">
-          <Button type="link" href="/auth/login" className="text-blue-600 dark:text-blue-400">Đăng nhập</Button>
-          <Button type="link" href="/auth/register" className="text-blue-600 dark:text-blue-400">Đăng ký</Button>
+          <Button type="link" href="/features/login" className="text-blue-600 dark:text-blue-400">Đăng nhập</Button>
+          <Button type="link" href="/features/register" className="text-blue-600 dark:text-blue-400">Đăng ký</Button>
         </div>
       </header>
 

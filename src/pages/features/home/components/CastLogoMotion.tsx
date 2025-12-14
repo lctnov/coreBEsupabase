@@ -20,7 +20,7 @@ export default function CastLogoMotion() {
         if (next === 100) {
           clearInterval(timer);
           setTimeout(() => {
-            router.replace("/home/HomePage");
+            router.replace("/features/home");
           }, 200);
         }
 

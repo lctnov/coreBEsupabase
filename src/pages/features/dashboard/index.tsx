@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { trpc } from "../../utils/trpc";
+import { trpc } from "../../../services/trpc";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function DashboardPage() {
       if (expiresAt) {
         const remaining = new Date(expiresAt).getTime() - Date.now();
         if (remaining <= 0) {
-          router.push("/auth/login?expired=true");
+          router.push("/features/login?expired=true");
         } else {
           const minutes = Math.floor(remaining / 60000);
           const seconds = Math.floor((remaining % 60000) / 1000);
@@ -39,7 +39,7 @@ export default function DashboardPage() {
   // Redirect nếu chưa login
   useEffect(() => {
     if (checkSessionQuery.isSuccess && !checkSessionQuery.data?.isAuthenticated) {
-      router.push("/auth/login");
+      router.push("/features/login");
     }
   }, [checkSessionQuery.isSuccess, checkSessionQuery.data?.isAuthenticated, router]);
 
@@ -47,7 +47,7 @@ export default function DashboardPage() {
       try {
         await logoutMutation.mutateAsync();
         document.cookie = "sessionToken=; path=/; max-age=0";
-        router.push("/auth/login?logged_out=true");
+        router.push("/features/login?logged_out=true");
       } catch (err) {
         console.error("Logout failed:", err);
       }

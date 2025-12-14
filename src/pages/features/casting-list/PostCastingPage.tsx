@@ -16,7 +16,7 @@ const Header: React.FC = () => (
       <nav className="flex items-center gap-4">
         <a href="/" className="text-sm">Trang chủ</a>
         <a href="/casting-list" className="text-sm">Casting</a>
-        <a href="/auth/login" className="text-sm text-black dark:text-white">Đăng nhập</a>
+        <a href="/features/login" className="text-sm text-black dark:text-white">Đăng nhập</a>
       </nav>
     </div>
   </header>

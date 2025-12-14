@@ -1,4 +1,4 @@
-import CastLogoMotion  from "@/components/CastLogoMotion";
+import CastLogoMotion  from "@/pages/features/home/components/CastLogoMotion";
 
 export default function HomePage() {
 

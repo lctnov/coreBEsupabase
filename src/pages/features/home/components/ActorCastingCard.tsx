@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ActorCastingInfor } from "@/pages/created/ActorCastingInfor";
+import { ActorCastingInfor } from "@/pages/features/created/ActorCastingInfor";
 import { Button, Card } from "antd";
-import { RecruiterCastingInfor } from "@/pages/created/RecruiterCastingInfor";
+import { RecruiterCastingInfor } from "@/pages/features/created/RecruiterCastingInfor";
 
 interface ActionCardProps {
   icon: string;

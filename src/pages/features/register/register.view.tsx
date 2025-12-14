@@ -1,39 +1,25 @@
+"use client";
+
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { trpc } from "../../utils/trpc";
-import { Button, Input, Alert, Checkbox, Space } from "antd";
-import { GoogleOutlined, FacebookOutlined, TwitterOutlined } from "@ant-design/icons";
+import { Button, Input, Alert, Space } from "antd";
+import {
+  GoogleOutlined,
+  FacebookOutlined,
+  TwitterOutlined,
+} from "@ant-design/icons";
+import { useRegisterVM } from "./register.view-model";
 
-export default function LoginPage() {
-  const router = useRouter();
+export function RegisterView() {
+  const { submit, loading, error } = useRegisterVM();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const loginMutation = trpc.auth.login.useMutation({
-    onSuccess: (data) => {
-      if (data.token) {
-        document.cookie = `sessionToken=${data.token}; path=/; max-age=${60 * 60 * 24 * 30}`;
-        if (data.expiresAt) {
-          localStorage.setItem("sessionExpiresAt", new Date(data.expiresAt).toISOString());
-        }
-        router.push("/dashboard");
-      }
-    },
-    onError: (err) => setError(err.message || "Đăng nhập thất bại"),
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      await loginMutation.mutateAsync({ email, password });
-    } finally {
-      setLoading(false);
-    }
+    submit({ email, password, confirmPassword });
   };
 
   return (
@@ -44,10 +30,9 @@ export default function LoginPage() {
 
           {/* Form Container */}
           <div className="bg-white dark:bg-gray-850 rounded-2xl shadow-2xl p-8 sm:p-10 border border-gray-200 dark:border-gray-700">
-            
+
             {/* Header */}
             <div className="flex flex-col items-center -mt-12 mb-8">
-              {/* Logo with gradient shadow / pulse */}
               <div className="relative group">
                 <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-xl opacity-70 group-hover:opacity-90 transition duration-500"></div>
                 <div className="relative bg-white dark:bg-gray-900 p-6 rounded-full ring-8 ring-white/20 shadow-2xl">
@@ -61,7 +46,6 @@ export default function LoginPage() {
                 <div className="absolute bottom-0 -right-4 w-32 h-32 bg-purple-400 rounded-full filter blur-3xl opacity-30 animate-pulse delay-1000"></div>
               </div>
 
-              {/* Title */}
               <div className="mt-8 text-center">
                 <h1 className="text-4xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   CAST-V
@@ -73,9 +57,7 @@ export default function LoginPage() {
             </div>
 
             {/* Error Alert */}
-            {error && (
-              <Alert message={error} type="error" showIcon className="mb-6" />
-            )}
+            {error && <Alert message={error} type="error" showIcon className="mb-6" />}
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -85,6 +67,7 @@ export default function LoginPage() {
                 </label>
                 <Input
                   size="large"
+                  type="email"
                   placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -107,13 +90,18 @@ export default function LoginPage() {
                 />
               </div>
 
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                <Checkbox className="text-gray-700 dark:text-gray-300">
-                  Keep me logged in
-                </Checkbox>
-                <Link href="/auth/forgot-password" className="text-sm text-blue-600 hover:underline">
-                  Forgot password
-                </Link>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Confirm Password <span className="text-red-500">*</span>
+                </label>
+                <Input.Password
+                  size="large"
+                  placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="!rounded-none"
+                  required
+                />
               </div>
 
               <Button
@@ -124,7 +112,7 @@ export default function LoginPage() {
                 block
                 className="h-12 text-base font-semibold bg-blue-600 hover:bg-blue-700"
               >
-                Log in now
+                Create account
               </Button>
             </form>
 
@@ -136,7 +124,7 @@ export default function LoginPage() {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-4 bg-white dark:bg-gray-850 text-gray-500">
-                    Or sign in with
+                    Or sign up with
                   </span>
                 </div>
               </div>
@@ -148,27 +136,27 @@ export default function LoginPage() {
               </Space>
             </div>
 
-            {/* Register Link */}
+            {/* Login Link */}
             <div className="mt-8 text-center">
               {/* Mobile / Tablet */}
               <p className="text-gray-600 dark:text-gray-400 text-sm lg:hidden">
-                Not a member yet?{" "}
+                Already have an account?{" "}
                 <Link
-                  href="/auth/register"
+                  href="/features/login"
                   className="font-semibold text-blue-600 dark:text-blue-400 hover:underline transition-colors duration-200"
                 >
-                  Register now
+                  Log in
                 </Link>
               </p>
 
               {/* Desktop */}
               <p className="hidden lg:block text-gray-700 dark:text-gray-300 text-sm mt-6">
-                New to CAST-V?{" "}
+                Already have an account?{" "}
                 <Link
-                  href="/auth/register"
+                  href="/features/login"
                   className="font-semibold text-blue-600 dark:text-blue-400 hover:underline transition-colors duration-200"
                 >
-                  Create Account
+                  Log in
                 </Link>
               </p>
             </div>
