@@ -30,6 +30,8 @@ export function useLoginVM() {
           );
         }
 
+        // Redirect to dashboard after successful login
+        //Xem lại ko trỏ về dashboard và trỏ về trang chính home
         router.push("/dashboard");
       }
     } catch (err: any) {
@@ -39,9 +41,6 @@ export function useLoginVM() {
     }
   };
 
-  return {
-    submit,
-    loading,
-    error,
-  };
+  return { submit, loading, error };
+  
 }

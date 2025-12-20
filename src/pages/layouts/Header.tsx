@@ -1,37 +1,106 @@
 
 import { useState } from "react";
-import { Input, Select, Button } from "antd";
+import { Input, Select, Button, MenuProps, Avatar, Dropdown } from "antd";
 import { SearchOutlined, NotificationOutlined } from "@ant-design/icons";
 import "swiper/css";
-import { Tv } from "lucide-react";
-
+import { Tv, LogOut, User } from "lucide-react";
+import { useLogout } from "../features/logout/logout.hook";
 
 const { Option } = Select;
 
+type User = {
+  name: string;
+  avatar?: string;
+};
+
 export default function Header() {
-    const [, setRole] = useState("");
+
+  const [, setRole] = useState("");
   const [, setLocation] = useState("");
   const [, setType] = useState("");
+  const [user, setUser] = useState<User | null>(null); //chưa đăng nhập
+
+  // Logout hook
+  const { logout, isPending } = useLogout();
+
+  // const user: User | null = {
+  //   name: "Luu Huyen",
+  //   avatar: "https://i.pravatar.cc/40"
+  // };
+
+  // Handle logout
+  const handleLogout = () => {
+    if (!isPending) logout();
+  };
+
+  const menuItems: MenuProps["items"] = [
+    {
+      key: "profile",
+      label: <span className="flex items-center gap-2"><User size={16} /> Profile</span>,
+    },
+    {
+      key: "logout",
+      label: (
+        <span className="flex items-center gap-2 text-red-500">
+          <LogOut size={16}  /> Logout
+        </span>
+      ),
+      onClick: handleLogout,
+      disabled: isPending,
+    },
+  ];
+
   return (
 	<>
 	{/* Header */}
-      <header className="flex justify-between items-center px-6 py-4 bg-gray-300 shadow-md sticky top-0 z-50">
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-2 group">
-          <div className="p-2 bg-blue-600 rounded-xl text-white group-hover:bg-blue-700 transition">
-            <Tv size={20} />
-          </div>
-          <span className="text-xl font-semibold tracking-tight text-gray-900 group-hover:text-blue-600 transition">
-            CAST-V
-          </span>
-        </a>
-        <div className="space-x-4">
-          <Button type="link" href="/features/login" className="text-gray-700 hover:text-blue-600 transition font-medium">Đăng nhập</Button>
-          <Button type="link" href="/features/register" className="text-gray-700 hover:text-blue-600 transition font-medium px-4">Đăng ký</Button>
+  <header className="flex justify-between items-center px-6 py-4 bg-gray-300 shadow-md sticky top-0 z-50">
+      {/* Logo */}
+      <a href="/" className="flex items-center gap-2 group">
+        <div className="p-2 bg-blue-600 rounded-xl text-white group-hover:bg-blue-700 transition">
+          <Tv size={20} />
         </div>
-      </header>
+        <span className="text-xl font-semibold tracking-tight text-gray-900 group-hover:text-blue-600 transition">
+          CAST-V
+        </span>
+      </a>
 
-      {/* HERO full-screen */}
+      {/* Right section */}
+      {user ? (
+        <Dropdown menu={{ items: menuItems }} placement="bottomRight">
+          <div className="flex items-center gap-3 cursor-pointer">
+            <Avatar
+              src={user?.avatar}
+              alt={user?.name}
+              size={36}
+            >
+              {!user?.avatar && user?.name.charAt(0)}
+            </Avatar>
+            <span className="font-medium text-gray-800">
+              {user?.name}
+            </span>
+          </div>
+        </Dropdown>
+      ) : (
+        <div className="space-x-4">
+          <Button
+            type="link"
+            href="/features/login"
+            className="text-gray-700 hover:text-blue-600 transition font-medium"
+          >
+            Đăng nhập
+          </Button>
+          <Button
+            type="link"
+            href="/features/register"
+            className="text-gray-700 hover:text-blue-600 transition font-medium px-4"
+          >
+            Đăng ký
+          </Button>
+        </div>
+      )}
+    </header>
+
+  {/* HERO full-screen */}
 <section className="relative w-full min-h-screen md:h-[90vh] overflow-hidden flex items-center">
 
   {/* Background */}

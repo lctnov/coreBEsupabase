@@ -8,7 +8,7 @@ import {
   FacebookOutlined,
   TwitterOutlined,
 } from "@ant-design/icons";
-import { useRegisterVM } from "./register.view-model";
+import { useRegisterVM } from "./register.hook";
 
 export function RegisterView() {
   const { submit, loading, error } = useRegisterVM();

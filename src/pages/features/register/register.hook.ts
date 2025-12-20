@@ -40,9 +40,6 @@ export function useRegisterVM() {
     }
   };
 
-  return {
-    submit,
-    loading,
-    error,
-  };
+  return { submit, loading, error };
+
 }

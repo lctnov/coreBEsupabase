@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLoginVM } from "./login.view-model";
+import { useLoginVM } from "./login.hook";
 import Link from "next/link";
 import { Button, Input, Alert, Checkbox, Space } from "antd";
 import { GoogleOutlined, FacebookOutlined, TwitterOutlined } from "@ant-design/icons";

@@ -6,7 +6,7 @@ export const authRouter = router({
   /**
    * Đăng ký tài khoản mới
    */
-  register: publicProcedure
+  registerUser: publicProcedure
     .input(
       zod.object({
         email: zod.string().email(),
@@ -19,7 +19,7 @@ export const authRouter = router({
    * Đăng nhập
    * Trả về session token + expires time
    */
-   login: publicProcedure
+   loginUser: publicProcedure
     .input(
       zod.object({
         email: zod.string().email(),
@@ -32,7 +32,7 @@ export const authRouter = router({
    * Đăng xuất
    * Xóa session khỏi database
    */
-  logout: protectedProcedure
+  logoutUser: protectedProcedure
     .input(zod.object({ token: zod.string() }).optional())
     .mutation(({ ctx, input }) => authController.logout(ctx, input)),
 
