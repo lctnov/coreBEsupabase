@@ -72,7 +72,7 @@ CREATE TABLE "users" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"email" varchar(255) NOT NULL,
 	"password" text NOT NULL,
-	"role" "user_role" DEFAULT 'ACTOR' NOT NULL,
+	"role" "user_role" DEFAULT 'USER' NOT NULL,
 	"plan" "user_plan" DEFAULT 'BASIC' NOT NULL,
 	"casting_quota" integer DEFAULT 0 NOT NULL,
 	"free_casting_used" boolean DEFAULT false NOT NULL,

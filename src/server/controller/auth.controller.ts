@@ -3,23 +3,24 @@ import { authService } from "../services/auth.service";
 export class AuthController {
 
   async register(input: any) {
-	return await authService.register(input);
+    console.log("Register input:", input);
+	  return await authService.register(input);
   }
 
   async login(input: any) {
-	return await authService.login(input);
+	  return await authService.login(input);
   }
 
   async logout(ctx: any, input: any) {
-	return await authService.logout(ctx, input);
+	  return await authService.logout(ctx, input);
   }
 
-  async me(ctx: any) {
-	return await authService.me(ctx);
+  async getUser(ctx: any) {
+	  return await authService.inforUser(ctx);
   }
 
   async checkSession(ctx: any) {
-	return await authService.checkSession(ctx);
+	  return await authService.checkSession(ctx);
   }
 }
 

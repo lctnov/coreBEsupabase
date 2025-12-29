@@ -6,17 +6,40 @@ import { generateToken, getSessionExpiry } from "../utils/session";
 class AuthRepository {
 
   findUserByEmail(email: string) {
+    console.log("Finding user by email:", email);
+    
     return DbsCasting.query.users.findFirst({
+      columns: {
+        email: true,
+      },
+      where: eq(users.email, email),
+    });
+  }
+
+  findUser(email: string) {
+    console.log("Finding user by email:", email);
+    
+    return DbsCasting.query.users.findFirst({
+      columns: {
+        id: true,
+        email: true,
+        password: true,
+        role: true,
+      },
       where: eq(users.email, email),
     });
   }
 
   async createUser(email: string, hashedPassword: string) {
+    console.log("Creating user with email:", email);
+    
     const result = await DbsCasting
       .insert(users)
       .values({ email, password: hashedPassword })
       .returning();
-
+      
+    console.log("Created user:", result);
+    
     return result[0];
   }
 

@@ -1,59 +1,52 @@
+"use client";
 
 import { useState } from "react";
 import { Input, Select, Button, MenuProps, Avatar, Dropdown } from "antd";
 import { SearchOutlined, NotificationOutlined } from "@ant-design/icons";
-import "swiper/css";
 import { Tv, LogOut, User } from "lucide-react";
-import { useLogout } from "../features/logout/logout.hook";
+import { useLayoutAuth } from "./layout.context";
 
 const { Option } = Select;
 
-type User = {
-  name: string;
-  avatar?: string;
-};
-
 export default function Header() {
-
+  // Search state (local – có thể tách hook sau)
   const [, setRole] = useState("");
   const [, setLocation] = useState("");
   const [, setType] = useState("");
-  const [user, setUser] = useState<User | null>(null); //chưa đăng nhập
 
-  // Logout hook
-  const { logout, isPending } = useLogout();
+  // Auth from Context
+  const { user, logout, isLoggingOut } = useLayoutAuth();
+  console.log('user', user);
+  
+  const displayName = user?.email ? user.email.split("@")[0] : "";
 
-  // const user: User | null = {
-  //   name: "Luu Huyen",
-  //   avatar: "https://i.pravatar.cc/40"
-  // };
-
-  // Handle logout
-  const handleLogout = () => {
-    if (!isPending) logout();
-  };
-
+  console.log('displayName', displayName);
+  
   const menuItems: MenuProps["items"] = [
     {
       key: "profile",
-      label: <span className="flex items-center gap-2"><User size={16} /> Profile</span>,
+      label: (
+        <span className="flex items-center gap-2">
+          <User size={16} /> Profile
+        </span>
+      ),
     },
     {
       key: "logout",
       label: (
         <span className="flex items-center gap-2 text-red-500">
-          <LogOut size={16}  /> Logout
+          <LogOut size={16} /> Logout
         </span>
       ),
-      onClick: handleLogout,
-      disabled: isPending,
+      onClick: logout,
+      disabled: isLoggingOut,
     },
   ];
 
   return (
-	<>
-	{/* Header */}
-  <header className="flex justify-between items-center px-6 py-4 bg-gray-300 shadow-md sticky top-0 z-50">
+    <>
+      {/* HEADER */}
+      <header className="flex justify-between items-center px-6 py-4 bg-gray-300 shadow-md sticky top-0 z-50">
       {/* Logo */}
       <a href="/" className="flex items-center gap-2 group">
         <div className="p-2 bg-blue-600 rounded-xl text-white group-hover:bg-blue-700 transition">
@@ -65,18 +58,18 @@ export default function Header() {
       </a>
 
       {/* Right section */}
-      {user ? (
+      {displayName ? (
         <Dropdown menu={{ items: menuItems }} placement="bottomRight">
           <div className="flex items-center gap-3 cursor-pointer">
             <Avatar
               src={user?.avatar}
-              alt={user?.name}
+              alt={displayName}
               size={36}
             >
-              {!user?.avatar && user?.name.charAt(0)}
+              {!user?.avatar && displayName.charAt(0).toUpperCase()}
             </Avatar>
             <span className="font-medium text-gray-800">
-              {user?.name}
+              {displayName}
             </span>
           </div>
         </Dropdown>
@@ -212,6 +205,6 @@ export default function Header() {
 </section>
 
 	</>
-	
+
   );
 }

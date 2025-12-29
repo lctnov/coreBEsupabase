@@ -1,8 +1,8 @@
-export type RegisterInput = {
+export interface RegisterInput {
   email: string;
   password: string;
-};
+}
 
-export type RegisterResponse = {
+export interface RegisterResponse {
   success: boolean;
-};
+}

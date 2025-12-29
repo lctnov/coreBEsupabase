@@ -11,7 +11,7 @@ export function useRegisterVM() {
   const [error, setError] = useState("");
 
   const registerMutation = registerService.register();
-
+  
   const submit = async (
     input: RegisterInput & { confirmPassword: string }
   ) => {
@@ -31,7 +31,9 @@ export function useRegisterVM() {
 
     setLoading(true);
     try {
-      await registerMutation.mutateAsync({ email, password });
+      const result = await registerMutation.mutateAsync({ email, password });
+      console.log("Register result:", result);
+      
       router.push("/features/login?registered=true");
     } catch (err: any) {
       setError(err.message || "Đăng ký thất bại");

@@ -1,4 +1,4 @@
-import { zod } from "zod";
+import { z } from "zod";
 import { router, publicProcedure, protectedProcedure } from "../trpc/router";
 import { authController } from "../controller/auth.controller";
 
@@ -8,9 +8,9 @@ export const authRouter = router({
    */
   registerUser: publicProcedure
     .input(
-      zod.object({
-        email: zod.string().email(),
-        password: zod.string().min(6),
+      z.object({
+        email: z.string().email(),
+        password: z.string().min(6),
       })
     )
     .mutation(({ input }) => authController.register(input)),
@@ -21,9 +21,9 @@ export const authRouter = router({
    */
    loginUser: publicProcedure
     .input(
-      zod.object({
-        email: zod.string().email(),
-        password: zod.string(),
+      z.object({
+        email: z.string().email(),
+        password: z.string(),
       })
     )
     .mutation(({ input }) => authController.login(input)),
@@ -33,10 +33,10 @@ export const authRouter = router({
    * Xóa session khỏi database
    */
   logoutUser: protectedProcedure
-    .input(zod.object({ token: zod.string() }).optional())
+    .input(z.object({ token: z.string() }).optional())
     .mutation(({ ctx, input }) => authController.logout(ctx, input)),
 
-  me: protectedProcedure.query(({ ctx }) => authController.me(ctx)),
+  getUser: protectedProcedure.query(({ ctx }) => authController.getUser(ctx)),
 
   checkSession: publicProcedure.query(({ ctx }) => authController.checkSession(ctx)),
 });

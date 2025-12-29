@@ -1,4 +1,4 @@
-import { zod } from "zod";
+import { z } from "zod";
 import { router, publicProcedure } from "../trpc/router";
 import { actorPostingController } from "../controller/actorPosting.controller";
 
@@ -6,19 +6,19 @@ export const actorPostingRouter = router({
   // CREATE / UPDATE PROFILE
   saveProfile: publicProcedure
     .input(
-      zod.object({
-        fullName: zod.string(),
-        dob: zod.string().optional(),
-        gender: zod.enum(["male", "female", "other"]),
-        cmnd: zod.string().optional(),
-        phone: zod.string().optional(),
-        email: zod.string().optional(),
-        address: zod.string().optional(),
-        height: zod.number().optional(),
-        job: zod.string().optional(),
-        applyRole: zod.string().optional(),
-        note: zod.string().optional(),
-        images: zod.array(zod.instanceof(File)).optional(),
+      z.object({
+        fullName: z.string(),
+        dob: z.string().optional(),
+        gender: z.enum(["male", "female", "other"]),
+        cmnd: z.string().optional(),
+        phone: z.string().optional(),
+        email: z.string().optional(),
+        address: z.string().optional(),
+        height: z.number().optional(),
+        job: z.string().optional(),
+        applyRole: z.string().optional(),
+        note: z.string().optional(),
+        images: z.array(z.instanceof(File)).optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
