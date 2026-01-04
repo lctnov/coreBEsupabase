@@ -1,4 +1,4 @@
-import { ActorCastingForm } from "./actor-form.type";
+import type { ActorCastingForm } from "./actor-form.type";
 
 export const ActorCastingFormService = {
   createInitialForm(): ActorCastingForm {

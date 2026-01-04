@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 export default function CastLogoMotion() {
 	
@@ -21,7 +21,7 @@ export default function CastLogoMotion() {
           clearInterval(timer);
           setTimeout(() => {
             router.replace("/features/home");
-          }, 200);
+          }, 1000);
         }
 
         return next;

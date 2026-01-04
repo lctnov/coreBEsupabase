@@ -4,7 +4,9 @@ export interface LoginInput {
 }
 
 export interface LoginResponse {
+  success: boolean;
+  id: string;
   email: string;
   token: string;
-  expiresAt?: string;
+  expiresAt?: Date;
 }

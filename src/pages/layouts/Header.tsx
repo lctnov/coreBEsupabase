@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Input, Select, Button, MenuProps, Avatar, Dropdown } from "antd";
+import type { MenuProps} from "antd";
+import { Input, Select, Button, Avatar, Dropdown } from "antd";
 import { SearchOutlined, NotificationOutlined } from "@ant-design/icons";
 import { Tv, LogOut, User } from "lucide-react";
 import { useLayoutAuth } from "./layout.context";
@@ -151,6 +152,7 @@ export default function Header() {
           {/* Input Search */}
           <Input
             size="large"
+            name="searchRole"
             placeholder="Tìm kiếm vai diễn..."
             prefix={<SearchOutlined />}
             className="rounded-xl flex-1 min-w-0"

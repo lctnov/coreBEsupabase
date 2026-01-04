@@ -1,9 +1,7 @@
-"use client";
-
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { authService } from "./login.service";
-import type { LoginInput, LoginResponse } from "./login.type";
+import type { LoginInput } from "./login.type";
 import { useLayoutAuth } from "@/pages/layouts/layout.context";
 
 const AUTH_USER_KEY = "auth_user";

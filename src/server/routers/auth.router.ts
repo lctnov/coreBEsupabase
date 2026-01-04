@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { router, publicProcedure, protectedProcedure } from "../trpc/router";
 import { authController } from "../controller/auth.controller";
-
 export const authRouter = router({
   /**
    * Đăng ký tài khoản mới
@@ -11,6 +10,7 @@ export const authRouter = router({
       z.object({
         email: z.string().email(),
         password: z.string().min(6),
+        role: z.enum([ "ACTOR", "RECRUITER" ]),
       })
     )
     .mutation(({ input }) => authController.register(input)),
@@ -33,8 +33,7 @@ export const authRouter = router({
    * Xóa session khỏi database
    */
   logoutUser: protectedProcedure
-    .input(z.object({ token: z.string() }).optional())
-    .mutation(({ ctx, input }) => authController.logout(ctx, input)),
+    .mutation(({ ctx }) => authController.logout(ctx)),
 
   getUser: protectedProcedure.query(({ ctx }) => authController.getUser(ctx)),
 

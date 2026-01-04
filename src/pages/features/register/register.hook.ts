@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { registerService } from "./register.service";
 import type { RegisterInput } from "./register.type";
 
@@ -15,23 +15,23 @@ export function useRegisterVM() {
   const submit = async (
     input: RegisterInput & { confirmPassword: string }
   ) => {
-    const { email, password, confirmPassword } = input;
+    const { email, password, confirmPassword, role } = input;
 
     setError("");
 
     if (password !== confirmPassword) {
-      setError("Mật khẩu không khớp");
+      setError("Mật khẩu không khớp !!!");
       return;
     }
 
     if (password.length < 6) {
-      setError("Mật khẩu phải ít nhất 6 ký tự");
+      setError("Mật khẩu phải ít nhất 6 ký tự !!!");
       return;
     }
 
     setLoading(true);
     try {
-      const result = await registerMutation.mutateAsync({ email, password });
+      const result = await registerMutation.mutateAsync({ email, password, role });
       console.log("Register result:", result);
       
       router.push("/features/login?registered=true");

@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLayoutService } from "./layout.service";
-import { LayoutAuthContextType, LayoutUser } from "./layout.type";
+import type { LayoutAuthContextType, LayoutUser } from "./layout.type";
 
 const AUTH_USER_KEY = "auth_user";
 const SESSION_EXPIRES_KEY = "sessionExpiresAt";
@@ -14,8 +14,8 @@ export function useLayoutAuthInternal(): LayoutAuthContextType {
     try {
       const raw = localStorage.getItem(AUTH_USER_KEY);
       return raw ? JSON.parse(raw) : null;
-    } catch (e) {
-      console.error("Invalid auth_user in localStorage", e);
+    } catch (err) {
+      console.error("Invalid auth_user in localStorage", err);
       return null;
     }
   });

@@ -1,4 +1,4 @@
-import { CastingType } from "./actor-card.type";
+import type { CastingType } from "./actor-card.type";
 
 export const ActorCastingCardService = {
   detectCastingType(title: string): CastingType {

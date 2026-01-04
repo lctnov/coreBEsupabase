@@ -13,14 +13,14 @@ export interface ActorCastingForm {
   applyRole?: string;
   note?: string;
   images?: File[];
-};
+}
 
 export interface ActorCastingInforProps {
   open: boolean;
   onClose: () => void;
   remainSlots: number;
-};
+}
 
 export interface ActorCastingResponse {
   id: string;
-};
+}

@@ -7,7 +7,7 @@ const nextConfig = {
     maxInactiveAge: 60 * 1000,
     pagesBufferLength: 5,
   },
-
+  
   experimental: {
     scrollRestoration: true,
   },
@@ -31,21 +31,21 @@ const nextConfig = {
     "@rc-component"
   ],
 
-  webpack(config, { dev }) {
-    config.resolve.extensionAlias = {
-      ".js": [".js", ".ts", ".tsx", ".jsx"],
-    };
+  // webpack(config, { dev }) {
+  //   config.resolve.extensionAlias = {
+  //     ".js": [".js", ".ts", ".tsx", ".jsx"],
+  //   };
 
-    if (dev) {
-      config.watchOptions = {
-        poll: 1000,
-        aggregateTimeout: 300,
-        ignored: ['**/node_modules', '**/.next'],
-      };
-    }
+  //   if (dev) {
+  //     config.watchOptions = {
+  //       poll: 1000,
+  //       aggregateTimeout: 300,
+  //       ignored: ['**/node_modules', '**/.next'],
+  //     };
+  //   }
 
-    return config;
-  },
+  //   return config;
+  // },
 };
 
 module.exports = nextConfig;

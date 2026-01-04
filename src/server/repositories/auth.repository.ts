@@ -2,6 +2,7 @@ import { DbsCasting } from "../database";
 import { users, sessions } from "../database/schema";
 import { eq } from "drizzle-orm";
 import { generateToken, getSessionExpiry } from "../utils/session";
+import type { UserRole } from "@/pages/features/register/register.type";
 
 class AuthRepository {
 
@@ -30,12 +31,12 @@ class AuthRepository {
     });
   }
 
-  async createUser(email: string, hashedPassword: string) {
+  async createUser(email: string, hashedPassword: string, role: UserRole) {
     console.log("Creating user with email:", email);
     
     const result = await DbsCasting
       .insert(users)
-      .values({ email, password: hashedPassword })
+      .values({ email, password: hashedPassword, role })
       .returning();
       
     console.log("Created user:", result);

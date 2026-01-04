@@ -1,16 +1,17 @@
 import { authRepository } from "../repositories/auth.repository";
 import bcrypt from "bcryptjs";
 import { TRPCError } from "@trpc/server";
+import type { RegisterResponse, UserRole } from "@/pages/features/register/register.type";
+import type { LogoutResponse } from "@/pages/layouts/layout.type";
+import type { LoginResponse } from "@/pages/features/login/login.type";
+import type { Context } from "../trpc/context";
 
 class AuthService {
   
-  async register(input: { email: string; password: string }) {
+  async register(input: { email: string; password: string, role: UserRole }): Promise<RegisterResponse & { user?: object }> {
     console.log("Register input:", input);
-    
     const existingUser = await authRepository.findUserByEmail(input.email).catch(err => console.log(err)) || null;
 
-    console.log('existingUser',existingUser);
-    
     if (existingUser) {
       throw new TRPCError({
         code: "BAD_REQUEST",
@@ -19,12 +20,13 @@ class AuthService {
     }
 
     const hashed = await bcrypt.hash(input.password, 10);
-    const user = await authRepository.createUser(input.email, hashed);
+    const user = await authRepository.createUser(input.email, hashed, input.role);
 
     return { success: true, user };
   }
 
-  async login(input: { email: string; password: string }) {
+  async login(input: { email: string; password: string }): Promise<LoginResponse> {
+    console.log("Login input:", input); 
     const user = await authRepository.findUser(input.email);
 
     if (!user) {
@@ -53,18 +55,20 @@ class AuthService {
       email: user.email,
       token: session.token,
       expiresAt: session.expiresAt,
-      type: 1,
     };
   }
 
-  async logout(ctx: any, input?: { token?: string }) {
-    console.log('ctx', ctx);
-    console.log('input', input);
-    
-    if (input?.token) {
-      await authRepository.deleteSessionByToken(input.token);
+  async logout(ctx: Context): Promise<LogoutResponse> {
+    const token = ctx.session?.token;
+
+    if (token) {
+      await authRepository.deleteSessionByToken(token);
     }
-    return { success: true, message: "Logged out successfully" };
+
+    return {
+      success: true,
+      message: "Logged out successfully",
+    };
   }
 
   inforUser(ctx: any) {

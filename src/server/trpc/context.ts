@@ -10,33 +10,40 @@ export async function createContext(opts?: {
 }) {
   let user: any = null;
   let sessionExpired = false;
+  let session: {
+    token: string;
+    userId: string;
+  } | null = null;
 
-  // Lấy token từ cookie hoặc header
-  const token = opts?.req?.cookies?.sessionToken || opts?.req?.headers?.authorization?.replace("Bearer ", "");
+  const token =
+    opts?.req?.cookies?.sessionToken ||
+    opts?.req?.headers?.authorization?.replace("Bearer ", "");
 
   if (token) {
-    // Tìm session trong database
-    const session = await DbsCasting.query.sessions.findFirst({
+    const foundSession = await DbsCasting.query.sessions.findFirst({
       where: eq(sessions.token, token),
       with: {
         user: true,
       },
     });
 
-    if (session) {
-      // Kiểm tra session đã hết hạn hay chưa
-      if (isSessionExpired(session.expiresAt)) {
+    if (foundSession) {
+      if (isSessionExpired(foundSession.expiresAt)) {
         sessionExpired = true;
-        // Xóa session cũ
         await DbsCasting.delete(sessions).where(eq(sessions.token, token));
       } else {
-        user = session.user;
+        user = foundSession.user;
+        session = {
+          token: foundSession.token,
+          userId: foundSession.userId,
+        };
       }
     }
   }
 
   return {
     user,
+    session, // ✅ QUAN TRỌNG
     sessionExpired,
     DbsCasting,
   };

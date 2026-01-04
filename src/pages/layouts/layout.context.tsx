@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { LayoutAuthContextType } from "./layout.type";
+import type { LayoutAuthContextType } from "./layout.type";
 import { useLayoutAuthInternal } from "./layout.hook";
 
 const LayoutAuthContext = createContext<LayoutAuthContextType | undefined>(

@@ -16,10 +16,11 @@ export function RegisterView() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState<"ACTOR" | "RECRUITER">("ACTOR");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submit({ email, password, confirmPassword });
+    submit({ email, password, confirmPassword, role });
   };
 
   return (
@@ -61,6 +62,43 @@ export function RegisterView() {
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  {/* ACTOR */}
+                  <button
+                    type="button"
+                    onClick={() => setRole("ACTOR")}
+                    className={`p-4 rounded-xl border text-left transition
+                      ${role === "ACTOR"
+                        ? "border-blue-600 bg-blue-50 dark:bg-blue-900/30"
+                        : "border-gray-300 dark:border-gray-600 hover:border-blue-400"
+                      }`}
+                  >
+                    <p className="font-semibold text-gray-700">🎭 Diễn viên</p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Ứng tuyển vai diễn
+                    </p>
+                  </button>
+
+                  {/* RECRUITER */}
+                  <button
+                    type="button"
+                    onClick={() => setRole("RECRUITER")}
+                    className={`p-4 rounded-xl border text-left transition
+                      ${role === "RECRUITER"
+                        ? "border-purple-600 bg-purple-50 dark:bg-purple-900/30"
+                        : "border-gray-300 dark:border-gray-600 hover:border-purple-400"
+                      }`}
+                  >
+                    <p className="font-semibold text-gray-700">🎬 Nhà tuyển chọn</p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Tuyển diễn viên
+                    </p>
+                  </button>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Email <span className="text-red-500">*</span>
