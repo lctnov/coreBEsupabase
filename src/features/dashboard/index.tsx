@@ -2,19 +2,19 @@
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { trpc } from "../../../services/trpc";
+import { trpc } from "@/services/trpc";
 
 export default function DashboardPage() {
   const router = useRouter();
   const [sessionTimeLeft, setSessionTimeLeft] = useState<string>("--:--");
 
   const checkSessionQuery = trpc.auth.checkSession.useQuery();
-  const meMutation = trpc.auth.me.useQuery(undefined, {
+  const meMutation = trpc.auth.checkSession.useQuery(undefined, {
     enabled: checkSessionQuery.data?.isAuthenticated,
   });
   // `meMutation.data` may be typed loosely by tRPC client; cast to any for safe access in UI
   const meData: any = meMutation.data;
-  const logoutMutation = trpc.auth.logout.useMutation();
+  const logoutMutation = trpc.auth.logoutUser.useMutation();
 
   // Theo dõi thời gian session còn lại
   useEffect(() => {

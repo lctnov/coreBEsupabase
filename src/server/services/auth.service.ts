@@ -1,9 +1,9 @@
 import { authRepository } from "../repositories/auth.repository";
 import bcrypt from "bcryptjs";
 import { TRPCError } from "@trpc/server";
-import type { RegisterResponse, UserRole } from "@/pages/features/register/register.type";
-import type { LogoutResponse } from "@/pages/layouts/layout.type";
-import type { LoginResponse } from "@/pages/features/login/login.type";
+import type { RegisterResponse, UserRole } from "@/features/register/register.type";
+import type { LogoutResponse } from "@/components/layouts/layout.type";
+import type { LoginResponse } from "@/features/login/login.type";
 import type { Context } from "../trpc/context";
 
 class AuthService {

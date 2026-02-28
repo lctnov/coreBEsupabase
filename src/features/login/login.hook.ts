@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { authService } from "./login.service";
 import type { LoginInput } from "./login.type";
-import { useLayoutAuth } from "@/pages/layouts/layout.context";
+import { useLayoutAuth } from "@/components/layouts/layout.context";
 
 const AUTH_USER_KEY = "auth_user";
 

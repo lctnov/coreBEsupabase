@@ -1,6 +1,6 @@
-import type { LoginInput } from "@/pages/features/login/login.type";
+import type { LoginInput } from "@/features/login/login.type";
 import { authService } from "../services/auth.service";
-import type { RegisterInput } from "@/pages/features/register/register.type";
+import type { RegisterInput } from "@/features/register/register.type";
 import type { Context } from "../trpc/context";
 export class AuthController {
   async register(input: RegisterInput) {

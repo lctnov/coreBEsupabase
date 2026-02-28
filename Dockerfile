@@ -1,3 +1,6 @@
+# ================================
+# 1️⃣ Build Stage
+# ================================
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -7,22 +10,29 @@ RUN npm install
 
 COPY . .
 
-# Build Next.js app
+# Build production
 RUN npm run build
 
-# Production stage
-FROM node:20-alpine
+
+# ================================
+# 2️⃣ Production Stage
+# ================================
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Copy from builder
+ENV NODE_ENV=production
+
+# Copy only needed files
 COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 
-RUN npm prune --production || true
+# Nếu bạn dùng .env.production
+# COPY --from=builder /app/.env.production ./
 
 EXPOSE 1211
 
-CMD ["npm", "run", "start"]
+CMD ["npx", "next", "start", "-p", "1211"]

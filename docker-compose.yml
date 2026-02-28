@@ -12,7 +12,7 @@ services:
     env_file:
       - .env.docker
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
     depends_on:
       db:
         condition: service_healthy
@@ -20,9 +20,10 @@ services:
       - suptest-net
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    restart: always
 
   db:
-    image: postgres:15
+    image: postgres:16
     container_name: suptest_db
     restart: always
     env_file:

@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import Footer from "@/pages/layouts/Footer";
+import Footer from "@/components/layouts/Footer";
 import { Tabs } from "antd";
 
 const top3Actors = [

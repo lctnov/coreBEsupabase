@@ -2,7 +2,7 @@ import { DbsCasting } from "../database";
 import { users, sessions } from "../database/schema";
 import { eq } from "drizzle-orm";
 import { generateToken, getSessionExpiry } from "../utils/session";
-import type { UserRole } from "@/pages/features/register/register.type";
+import type { UserRole } from "@/features/register/register.type";
 
 class AuthRepository {
 

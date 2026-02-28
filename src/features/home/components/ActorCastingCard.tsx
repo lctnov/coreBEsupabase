@@ -1,8 +1,8 @@
 "use client";
 
-import { ActorCastingInfor } from "@/pages/features/created/ActorCastingInfor";
+import { ActorCastingInfor } from "@/features/created/ActorCastingInfor";
 import { Button, Card } from "antd";
-import { RecruiterCastingInfor } from "@/pages/features/created/RecruiterCastingInfor";
+import { RecruiterCastingInfor } from "@/features/created/RecruiterCastingInfor";
 import type { ActorCastingCardProps, ActionCardProps } from "../../actorcard/actor-card.type";
 import { useActorCardVM } from "../../actorcard/actor-card.hook";
 
